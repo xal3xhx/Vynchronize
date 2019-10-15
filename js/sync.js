@@ -421,6 +421,9 @@ socket.on('playVideoClient', function(data) {
         case 3:
             html5Play()
             break;
+        case 4:
+            dropPlay()
+            break;
         default:
             console.log("Error invalid player id")
     }
@@ -439,6 +442,9 @@ socket.on('pauseVideoClient', function(data) {
             break;
         case 3:
             media.pause()
+            break;
+        case 4:
+            drop.pause()
             break;
         default:
             console.log("Error invalid player id")
@@ -552,6 +558,19 @@ socket.on('syncVideoClient', function(data) {
                 }
                 break;
 
+            case 4:
+                var clientTime = drop.currentTime;
+                // Only seek if off by more than .1 seconds
+                if (true || clientTime < currTime - .1 || clientTime > currTime + .1) {
+                    drop.seek(currTime);
+                }
+                if (state) {
+                    console.log("i pausing!")
+                    drop.pause()
+                } else {
+                    drop.play()
+                }
+                break;
             default:
                 console.log("Error invalid player id")
         }
@@ -585,6 +604,7 @@ socket.on('changeVideoClient', function(data) {
                     autoplay: true
                 });
                 break;
+                
             case 2:
                 vimeoPlayer.loadVideo(videoId).then(function(id) {
                     // the video successfully loaded
@@ -609,9 +629,15 @@ socket.on('changeVideoClient', function(data) {
                     }
                 });
                 break;
+
             case 3:
                 htmlLoadVideo(videoId)
                 break;
+
+            case 4:
+                dropLoadVideo(videoId)
+                break;
+
             default:
                 console.log("Error invalid player id")
         }
