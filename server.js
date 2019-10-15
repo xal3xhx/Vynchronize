@@ -695,6 +695,9 @@ io.sockets.on('connection', function(socket) {
                 case 3:
                     io.sockets.in("room-" + roomnum).emit('createHTML5', {});
                     break;
+                case 4:
+                    io.sockets.in("room-" + roomnum).emit('createDrop', {});
+                    break;
                 default:
                     console.log("Error invalid player id")
             }

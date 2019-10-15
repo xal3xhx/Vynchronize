@@ -232,6 +232,46 @@ socket.on('createHTML5', function(data) {
     }
 });
 
+socket.on('createDrop', function(data) {
+    // console.log("i am in create Drop")
+    // player.destroy()
+    if (currPlayer != 4) {
+        //     var playerIn = document.getElementById("playerArea")
+        //     console.log(playerIn.innerHTML)
+        //     playerIn.innerHTML = "<iframe id=\"player-daily\" frameborder=\"0\" width=\"640\" height=\"360\"src=\"//www.dailymotion.com/embed/video/x26m1j4\"allowfullscreen allow=\"autoplay\"></iframe>"
+
+        var you = document.getElementById('playerArea');
+        you.style.display = 'none';
+
+        var vimeo = document.getElementById('vimeoArea');
+        vimeo.style.display = 'none';
+
+        var html5 = document.getElementById('HTML5Area');
+        html5.style.display = 'none';
+
+        var daily = document.getElementById('dailyArea');
+        daily.style.display = 'none';
+
+        var Drop = document.getElementById('dropboxArea');
+        daily.style.display = 'block';
+        currPlayer = 4
+
+        // disable for dm/vimeo
+        document.getElementById('visual-queue').style.display = 'none'
+        document.getElementById('queue-arrows').style.display = 'none'
+        document.getElementById('beta-message').style.display = 'block'
+        document.getElementById('enqueueButton').style.display = 'none'
+        document.getElementById('emptyButton').style.display = 'none'
+        document.getElementById('nextButton').style.display = 'none'
+        document.getElementById('loveButton').style.display = 'none'
+        document.getElementById('inputVideoId').placeholder = 'dropbox link'
+
+
+        // Special call to pause youtube player
+        // Only have to do on youtube player as it is the default player that autoplays
+        player.pauseVideo();
+    }
+});
 
 // changeSinglePlayer(roomnum, playerId){
 //
